@@ -1,0 +1,15 @@
+{
+  "name": "projeto_teste",
+  "version": "1.0.0",
+  "description": "Projeto de teste do NodeJS",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mantonio",
+  "license": "ISC",
+  "dependencies": {
+  	"express" : "^4.15.2",
+	"ejs" : "^2.5.6"
+  }
+}
