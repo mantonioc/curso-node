@@ -22,7 +22,7 @@
 				});
 
 				$('#btn_suditos').click(function(){
-					$('#msg_erros').hide();
+					$('#msg').hide();
 					$.ajax({
 						url: '/suditos',
 						method: 'get',
@@ -33,17 +33,39 @@
 				});
 
 				$('#btn_pergaminho').click(function(){
-					$('#msg_erros').hide();
+					$('#msg').hide();
 					$.ajax({
 						url: '/pergaminhos',
 						method: 'get',
 						success: function(data){
 							$('#acoes').html(data);
+							clearTimeout(time_id);
+							cronometro();
 						}
 					});
 				});
 
 			});
+
+			var time_id = null;
+
+			function cronometro()
+			{
+					$('.tempo_restante').each(function(e){
+						var segundos = $(this).html();
+						var segundos_atuais = parseInt(segundos) - 1;
+
+						if(segundos_atuais < 0)
+						{
+								window.location.href = '/jogo?msg=C'
+						} else {
+								$(this).html(segundos_atuais);
+						}
+					});
+
+					time_id = setTimeout('cronometro()',1000);
+			}
+
 		</script>
 
 	</head>
@@ -60,9 +82,21 @@
 
 	    <div class="container">
 
-				<% if(comando_invalido == 'S'){ %>
-					<div class="alert alert-danger" id="msg_erros">
-						<strong>Oparação inválida, verifique se todos os campos foram informadas</strong>
+				<% if(msg == 'A'){ %>
+					<div class="alert alert-danger" id="msg">
+						<strong>Operação inválida, verifique se todos os campos foram informadas</strong>
+					</div>
+				<% } %>
+
+				<% if(msg == 'B'){ %>
+					<div class="alert alert-info" id="msg">
+						<strong>Ação realizada com sucesso!</strong>
+					</div>
+				<% } %>
+
+				<% if(msg == 'C'){ %>
+					<div class="alert alert-info" id="msg">
+						<strong>Senhor, a atividade ordenada foi finalizada!</strong>
 					</div>
 				<% } %>
 
