@@ -71,7 +71,15 @@ module.exports.ordenar_acao_sudito = function(application, req, res) {
 
 };
 
+module.exports.revogar_acao = function(application, req, res) {
+	var url_query = req.query;
 
+	var connection = application.config.dbConnection;
+	var JogoDAO = new application.app.models.JogoDAO(connection);
+
+	var _id = url_query.id_acao
+	JogoDAO.revogarAcao(_id, res);
+};
 
 module.exports.sair = function(application, req, res) {
 	req.session.destroy(function(err){
